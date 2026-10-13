@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android= "http://schemas.android.com/apk/res/android"
+    android:id   = "@+id/main"
+    android:layout_width=  "match_parent"
+    android:layout_height= "match_parent"
+    android:orientation=   "vertical">
+
+
+    <!-- loads the toolbar -->
+    <include layout = "@layout/view_toolbar" />
+    <!-- allows the settings content to scroll -->
+    <ScrollView
+        android:layout_width=   "match_parent"
+        android:layout_height= "0dp"
+        android:layout_weight= "1"
+        android:fillViewport   = "true">
+
+
+        <!-- holds the settings options -->
+        <LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_height=   "wrap_content"
+            android:orientation=  "vertical"
+            android:padding= "20dp">
+            <!-- introduces the settings screen -->
+            <TextView
+                android:layout_width= "match_parent"
+                android:layout_height   = "wrap_content"
+                android:text = "@string/settings_intro"
+                android:textSize=  "18sp" />
+
+
+            <!-- sort order label -->
+            <TextView
+                android:layout_width   = "match_parent"
+                android:layout_height= "wrap_content"
+                android:layout_marginTop=   "20dp"
+                android:labelFor= "@id/spinner_sort_order"
+                android:text   = "@string/pantry_sort_order" />
+
+            <!-- allows the pantry sort order to be selected -->
+            <Spinner
+                android:id =  "@+id/spinner_sort_order"
+                android:layout_width= "match_parent"
+                android:layout_height =   "wrap_content"
+                android:minHeight = "48dp"
+                android:entries   = "@array/pantry_sort_options" />
+
+
+            <!-- temporary settings message -->
+            <TextView
+                android:layout_width=   "match_parent"
+                android:layout_height= "wrap_content"
+                android:layout_marginTop   = "20dp"
+                android:text=  "@string/settings_preview" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

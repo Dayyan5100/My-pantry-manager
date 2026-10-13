@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:id= "@+id/main"
+    android:layout_width =  "match_parent"
+    android:layout_height= "match_parent"
+    android:orientation   = "vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- loads the toolbar at the top -->
+    <include layout= "@layout/view_toolbar" />
+    <!-- allows the screen content to scroll -->
+    <ScrollView
+        android:layout_width   = "match_parent"
+        android:layout_height=  "0dp"
+        android:layout_weight = "1"
+        android:fillViewport=   "true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- holds the pantry screen content -->
+        <LinearLayout
+            android:layout_width= "match_parent"
+            android:layout_height =   "wrap_content"
+            android:orientation=  "vertical"
+            android:padding = "20dp">
+
+
+            <!-- introduction text -->
+            <TextView
+                android:layout_width = "match_parent"
+                android:layout_height=   "wrap_content"
+                android:text=  "@string/pantry_intro"
+                android:textSize= "18sp" />
+
+            <!-- opens the add ingredient screen -->
+            <Button
+                android:id =   "@+id/button_add_ingredient"
+                android:layout_width= "match_parent"
+                android:layout_height= "wrap_content"
+                android:layout_marginTop=   "20dp"
+                android:text  = "@string/add_ingredient" />
+
+            <!-- opens the suggested recipes screen -->
+            <Button
+                android:id=  "@+id/button_view_suggestions"
+                android:layout_width=   "match_parent"
+                android:layout_height= "wrap_content"
+                android:text = "@string/view_suggestions" />
+
+
+            <!-- shown when there are no pantry ingredients -->
+            <TextView
+                android:id = "@+id/text_pantry_empty"
+                android:layout_width=   "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginTop  = "24dp"
+                android:gravity= "center"
+                android:text   = "@string/pantry_empty"
+                android:textSize=  "16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
