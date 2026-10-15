@@ -1,8 +1,8 @@
 ## Current Progress
 
 
-- Showed passing data using an Intent extra
-- Created SQLite tables for pantry items, recipes and recipe ingredients
-- Added pantry create, read,update aswell as delete methods
-- Added tests for pantry CRUD,database reopening,
-  missing records and invalid input.
+
+- Connected the Add Ingredient form to SQLite
+- Added validation for blank names and invalid quantities
+- Added unit selection and save feedback
+- Moved database saving to a background thread away from the main thread

@@ -92,15 +92,16 @@
                 android:layout_width= "match_parent"
                 android:layout_height= "wrap_content"
                 android:layout_marginTop   = "20dp"
-                android:enabled= "false"
                 android:text = "@string/save_ingredient"  />
 
 
             <!-- temporary preview message -->
             <TextView
-                android:layout_width = "match_parent"
-                android:layout_height=   "wrap_content"
-                android:text=  "@string/form_preview"  />
+                android:id ="@+id/text_form_status"
+                android:layout_width= "match_parent"
+                android:layout_height=  "wrap_content"
+                android:accessibilityLiveRegion   ="polite"
+                android:text =   "@string/ingredient_form_help" />
 
 
         </LinearLayout>

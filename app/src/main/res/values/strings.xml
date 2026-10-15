@@ -73,4 +73,14 @@
         <item>Newest first</item>
     </string-array>
 
+    <string name="error_ingredient_name">Enter an ingredient name.</string>
+    <string name="error_quantity_required">Enter a quantity.</string>
+    <string name="error_quantity_invalid">Enter a valid number greater than zero.</string>
+    <string name="error_unit_required">Choose a valid unit.</string>
+
+    <string name="ingredient_saved">Ingredient saved.</string>
+    <string name="ingredient_save_failed">Could not save the ingredient. Please try again.</string>
+    <string name="saving_ingredient">Saving ingredient…</string>
+    <string name="ingredient_form_help">Enter the ingredient details, then tap Save Ingredient.</string>
+
 </resources>
