@@ -1,110 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:id= "@+id/main"
+    xmlns:android =  "http://schemas.android.com/apk/res/android"
+    android:id = "@+id/main"
     android:layout_width   = "match_parent"
-    android:layout_height= "match_parent"
-    android:orientation =  "vertical">
-
+    android:layout_height=   "match_parent"
+    android:orientation = "vertical">
     <!-- loads the toolbar -->
-    <include layout = "@layout/view_toolbar"  />
-
-
-    <!-- allows the content to scroll -->
+    <include layout=   "@layout/view_toolbar" />
+    <!-- allows the form to scroll if needed -->
     <ScrollView
-        android:layout_width= "match_parent"
-        android:layout_height =   "0dp"
-        android:layout_weight = "1"
-        android:fillViewport = "true">
+        android:layout_width  = "match_parent"
+        android:layout_height =    "match_parent">
 
-        <!-- holds the form content -->
+
+        <!-- holds the ingredient form -->
         <LinearLayout
-            android:layout_width=  "match_parent"
-            android:layout_height= "wrap_content"
-            android:orientation   = "vertical"
-            android:padding= "20dp" >
-
-
-
-            <!-- introduces the ingredient form -->
+            android:layout_width= "match_parent"
+            android:layout_height  =   "wrap_content"
+            android:orientation = "vertical"
+            android:padding =  "20dp">
+            <!-- explains what the form is for -->
             <TextView
-                android:layout_width= "match_parent"
-                android:layout_height= "wrap_content"
-                android:text   = "@string/ingredient_intro"
-                android:textSize=  "18sp" />
+                android:layout_width   = "match_parent"
+                android:layout_height = "wrap_content"
+                android:text =   "@string/ingredient_intro"
+                android:textSize= "18sp" />
             <!-- ingredient name label -->
             <TextView
-                android:layout_width =   "match_parent"
-                android:layout_height= "wrap_content"
-                android:layout_marginTop = "20dp"
-                android:labelFor=   "@id/edit_ingredient_name"
-                android:text= "@string/ingredient_name"    />
+                android:layout_width=   "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginTop=    "20dp"
+                android:text   = "@string/ingredient_name" />
 
 
-            <!-- ingredient name input -->
+
+            <!-- lets the user enter the ingredient name -->
             <EditText
-                android:id= "@+id/edit_ingredient_name"
-                android:layout_width= "match_parent"
+                android:id = "@+id/edit_ingredient_name"
+                android:layout_width = "match_parent"
                 android:layout_height   = "wrap_content"
-                android:minHeight= "48dp"
-                android:hint=   "@string/ingredient_name_hint"
-                android:inputType= "textCapWords"
-                android:maxLines = "1" />
+                android:hint =   "@string/ingredient_name_hint"
+                android:inputType = "textCapWords" />
+
 
             <!-- quantity label -->
             <TextView
-                android:layout_width=   "match_parent"
-                android:layout_height= "wrap_content"
-                android:layout_marginTop= "12dp"
-                android:labelFor =  "@id/edit_quantity"
+                android:layout_width =   "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginTop =  "16dp"
                 android:text= "@string/quantity" />
 
 
-            <!-- quantity input -->
+            <!-- lets the user enter the quantity -->
             <EditText
-                android:id = "@+id/edit_quantity"
-                android:layout_width= "match_parent"
-                android:layout_height=  "wrap_content"
-                android:minHeight   = "48dp"
-                android:hint= "@string/quantity_hint"
-                android:inputType = "numberDecimal"
-                android:maxLines=   "1" />
+                android:id  =  "@+id/edit_quantity"
+                android:layout_width = "match_parent"
+                android:layout_height=    "wrap_content"
+                android:hint =  "@string/quantity_hint"
+                android:inputType = "numberDecimal" />
+
 
             <!-- unit label -->
             <TextView
-                android:layout_width   = "match_parent"
-                android:layout_height= "wrap_content"
-                android:layout_marginTop =  "12dp"
-                android:labelFor= "@id/spinner_unit"
-                android:text=   "@string/unit" />
-
-            <!-- unit selection list -->
-            <Spinner
-                android:id=  "@+id/spinner_unit"
                 android:layout_width= "match_parent"
                 android:layout_height=   "wrap_content"
-                android:minHeight = "48dp"
-                android:entries= "@array/ingredient_units" />
+                android:layout_marginTop= "16dp"
 
-            <!-- save button -->
-            <Button
-                android:id =   "@+id/button_save_ingredient"
-                android:layout_width= "match_parent"
+                android:text=    "@string/unit" />
+
+
+            <!-- lets the user choose the measurement unit -->
+            <Spinner
+                android:id   = "@+id/spinner_unit"
+                android:layout_width=   "match_parent"
                 android:layout_height= "wrap_content"
-                android:layout_marginTop   = "20dp"
-                android:text = "@string/save_ingredient"  />
+                android:entries=  "@array/ingredient_units" />
 
 
-            <!-- temporary preview message -->
+            <!-- saves the ingredient -->
+            <Button
+                android:id= "@+id/button_save_ingredient"
+                android:layout_width   =  "match_parent"
+                android:layout_height= "wrap_content"
+                android:layout_marginTop =    "24dp"
+                android:text=   "@string/save_ingredient" />
+
+
+            <!-- shows help, saving or error messages -->
             <TextView
-                android:id ="@+id/text_form_status"
+                android:id =  "@+id/text_form_status"
                 android:layout_width= "match_parent"
-                android:layout_height=  "wrap_content"
-                android:accessibilityLiveRegion   ="polite"
-                android:text =   "@string/ingredient_form_help" />
-
+                android:layout_height   = "wrap_content"
+                android:layout_marginTop=   "16dp"
+                android:gravity= "center"
+                android:text= "@string/form_preview"
+                android:textSize   =  "14sp" />
 
         </LinearLayout>
+
+
     </ScrollView>
 
 </LinearLayout>

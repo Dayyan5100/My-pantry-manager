@@ -2,7 +2,7 @@
 
 
 
-- Connected the Add Ingredient form to SQLite
-- Added validation for blank names and invalid quantities
-- Added unit selection and save feedback
-- Moved database saving to a background thread away from the main thread
+- Displayed saved sqlite pantry records using the listview and a custom adapter
+- Added automatic pantry refresh when returning back to the screen
+- Added the loading and empty pantry and database error feedback
+- Showed ingredient names, quantities and units
