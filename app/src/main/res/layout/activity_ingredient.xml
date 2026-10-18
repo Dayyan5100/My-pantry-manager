@@ -3,22 +3,23 @@
     xmlns:android =  "http://schemas.android.com/apk/res/android"
     android:id = "@+id/main"
     android:layout_width   = "match_parent"
-    android:layout_height=   "match_parent"
+    android:layout_height=  "match_parent"
     android:orientation = "vertical">
+
     <!-- loads the toolbar -->
     <include layout=   "@layout/view_toolbar" />
+
     <!-- allows the form to scroll if needed -->
     <ScrollView
         android:layout_width  = "match_parent"
-        android:layout_height =    "match_parent">
-
-
+        android:layout_height =   "match_parent">
         <!-- holds the ingredient form -->
         <LinearLayout
             android:layout_width= "match_parent"
             android:layout_height  =   "wrap_content"
             android:orientation = "vertical"
             android:padding =  "20dp">
+
             <!-- explains what the form is for -->
             <TextView
                 android:layout_width   = "match_parent"
@@ -29,7 +30,7 @@
             <TextView
                 android:layout_width=   "match_parent"
                 android:layout_height = "wrap_content"
-                android:layout_marginTop=    "20dp"
+                android:layout_marginTop=  "20dp"
                 android:text   = "@string/ingredient_name" />
 
 
@@ -55,7 +56,7 @@
             <EditText
                 android:id  =  "@+id/edit_quantity"
                 android:layout_width = "match_parent"
-                android:layout_height=    "wrap_content"
+                android:layout_height=   "wrap_content"
                 android:hint =  "@string/quantity_hint"
                 android:inputType = "numberDecimal" />
 
@@ -65,40 +66,45 @@
                 android:layout_width= "match_parent"
                 android:layout_height=   "wrap_content"
                 android:layout_marginTop= "16dp"
-
-                android:text=    "@string/unit" />
+                android:text=  "@string/unit" />
 
 
             <!-- lets the user choose the measurement unit -->
             <Spinner
                 android:id   = "@+id/spinner_unit"
                 android:layout_width=   "match_parent"
-                android:layout_height= "wrap_content"
+                android:layout_height = "wrap_content"
                 android:entries=  "@array/ingredient_units" />
-
-
             <!-- saves the ingredient -->
             <Button
                 android:id= "@+id/button_save_ingredient"
                 android:layout_width   =  "match_parent"
                 android:layout_height= "wrap_content"
-                android:layout_marginTop =    "24dp"
+                android:layout_marginTop =   "24dp"
                 android:text=   "@string/save_ingredient" />
-
-
+            <!-- deletes the ingredient when editing -->
+            <Button
+                android:id =  "@+id/button_delete_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height =   "wrap_content"
+                android:layout_marginTop= "8dp"
+                android:text = "@string/delete_ingredient"
+                android:visibility=  "gone" />
             <!-- shows help, saving or error messages -->
             <TextView
                 android:id =  "@+id/text_form_status"
                 android:layout_width= "match_parent"
                 android:layout_height   = "wrap_content"
                 android:layout_marginTop=   "16dp"
-                android:gravity= "center"
+                android:gravity = "center"
                 android:text= "@string/form_preview"
                 android:textSize   =  "14sp" />
+
 
         </LinearLayout>
 
 
     </ScrollView>
+
 
 </LinearLayout>

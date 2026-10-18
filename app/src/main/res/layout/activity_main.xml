@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:id=  "@+id/main"
-    android:layout_width= "match_parent"
-    android:layout_height= "match_parent"
-    android:orientation =   "vertical">
-
+    xmlns:android =  "http://schemas.android.com/apk/res/android"
+    android:id= "@+id/main"
+    android:layout_width = "match_parent"
+    android:layout_height=   "match_parent"
+    android:orientation =  "vertical">
     <!-- loads the toolbar at the top -->
     <include layout= "@layout/view_toolbar" />
     <!-- holds the pantry screen content -->
     <LinearLayout
-        android:layout_width=  "match_parent"
+        android:layout_width = "match_parent"
         android:layout_height= "0dp"
         android:layout_weight  = "1"
-        android:orientation=  "vertical"
+        android:orientation=   "vertical"
         android:padding = "20dp">
-
-
         <!-- introduction text -->
         <TextView
             android:layout_width= "match_parent"
             android:layout_height  = "wrap_content"
-            android:text= "@string/pantry_intro"
-            android:textSize=  "18sp" />
+            android:text =  "@string/pantry_intro"
+            android:textSize= "18sp" />
 
 
 
@@ -31,45 +28,56 @@
             android:id   = "@+id/button_add_ingredient"
             android:layout_width=  "match_parent"
             android:layout_height = "wrap_content"
-            android:layout_marginTop=   "16dp"
-            android:text=  "@string/add_ingredient" />
+            android:layout_marginTop= "16dp"
+            android:text  = "@string/add_ingredient" />
 
 
         <!-- opens the suggested recipes screen -->
         <Button
-            android:id  = "@+id/button_view_suggestions"
+            android:id = "@+id/button_view_suggestions"
             android:layout_width   = "match_parent"
             android:layout_height=  "wrap_content"
-            android:text = "@string/view_suggestions" />
+            android:text=   "@string/view_suggestions" />
 
 
         <!-- shows loading or error messages -->
         <TextView
             android:id=   "@+id/text_pantry_status"
             android:layout_width= "match_parent"
-            android:layout_height   = "wrap_content"
+            android:layout_height  = "wrap_content"
             android:layout_marginTop= "16dp"
             android:gravity =  "center"
             android:text=   "@string/pantry_loading"
             android:textSize = "16sp" />
+
         <!-- lets the user retry loading pantry data -->
+
         <Button
             android:id=  "@+id/button_retry_pantry"
-            android:layout_width = "wrap_content"
+            android:layout_width= "wrap_content"
             android:layout_height=   "wrap_content"
             android:layout_gravity = "center_horizontal"
             android:text   = "@string/retry"
             android:visibility= "gone" />
+
+
+        <!-- tells the user how to edit or delete an ingredient -->
+        <TextView
+            android:layout_width= "match_parent"
+            android:layout_height=  "wrap_content"
+            android:layout_marginTop=   "12dp"
+            android:text =  "@string/pantry_edit_hint" />
+
+
         <!-- displays pantry items from the database -->
         <ListView
-            android:id   =  "@+id/list_pantry"
-            android:layout_width= "match_parent"
-            android:layout_height =  "0dp"
+            android:id= "@+id/list_pantry"
+            android:layout_width=  "match_parent"
+            android:layout_height= "0dp"
             android:layout_weight= "1"
             android:layout_marginTop   = "12dp"
             android:visibility =   "gone" />
+
     </LinearLayout>
-
-
 
 </LinearLayout>

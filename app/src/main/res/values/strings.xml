@@ -100,4 +100,31 @@
 
 
 
+
+    <!-- edit ingredient text -->
+    <string name= "title_edit_ingredient">Edit Ingredient</string>
+    <string name =   "update_ingredient">Save Changes</string>
+    <string name=   "ingredient_updated">Ingredient updated.</string>
+    <string  name="ingredient_deleted">Ingredient deleted.</string>
+    <string name    = "ingredient_not_found">This ingredient no longer exists.</string>
+    <string name =  "ingredient_load_failed">Could not load this ingredient. Please try again.</string>
+    <string name= "ingredient_loading">Loading ingredient…</string>
+    <string  name   = "ingredient_edit_help">Update the details and tap Save Changes, or delete this ingredient.</string>
+
+
+
+    <!-- delete ingredient text -->
+    <string name="delete_ingredient">Delete Ingredient</string>
+    <string   name=   "delete_ingredient_title">Delete ingredient?</string>
+    <string name = "delete_ingredient_message">Remove this ingredient from your pantry? This cannot be undone.</string>
+
+    <string  name= "confirm_delete">Delete</string>
+    <string name    =   "cancel">Cancel</string>
+    <string name=  "deleting_ingredient">Deleting ingredient…</string>
+    <string   name = "ingredient_delete_failed">Could not delete the ingredient. Please try again.</string>
+
+
+    <!-- pantry edit instruction -->
+    <string name   ="pantry_edit_hint">Tap an ingredient to edit or delete it.</string>
+
 </resources>
