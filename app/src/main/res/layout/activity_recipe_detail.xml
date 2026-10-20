@@ -1,84 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:id=  "@+id/main"
+    xmlns:android =  "http://schemas.android.com/apk/res/android"
+    android:id= "@+id/main"
     android:layout_width   = "match_parent"
-    android:layout_height= "match_parent"
-    android:orientation=   "vertical">
-
+    android:layout_height =  "match_parent"
+    android:orientation = "vertical">
 
     <!-- loads the toolbar -->
-    <include layout= "@layout/view_toolbar" />
-    <!-- allows the recipe details to scroll -->
+    <include layout = "@layout/view_toolbar" />
+
+
+    <!-- scrollview allows the user to scroll through longer recipes -->
     <ScrollView
         android:layout_width= "match_parent"
-        android:layout_height=  "0dp"
+        android:layout_height =  "0dp"
         android:layout_weight   = "1"
         android:fillViewport= "true">
 
 
-        <!-- holds the recipe detail content -->
+        <!-- holds the recipe information -->
         <LinearLayout
-            android:layout_width= "match_parent"
-            android:layout_height   = "wrap_content"
-            android:orientation= "vertical"
-            android:padding=   "20dp">
-
-            <!-- displays the recipe name -->
+            android:layout_width = "match_parent"
+            android:layout_height=   "wrap_content"
+            android:orientation =  "vertical"
+            android:padding = "20dp">
+            <!-- displays the selected recipe name -->
             <TextView
                 android:id   = "@+id/text_recipe_name"
                 android:layout_width= "match_parent"
-                android:layout_height=  "wrap_content"
-                android:text= "@string/preview_recipe_name"
-                android:textSize   = "24sp"
-                android:textStyle=  "bold" />
+                android:layout_height = "wrap_content"
+                android:textSize =  "24sp"
+                android:textStyle = "bold" />
 
 
             <!-- ingredients heading -->
             <TextView
-                android:layout_width =   "match_parent"
-                android:layout_height= "wrap_content"
+                android:layout_width = "match_parent"
+                android:layout_height=  "wrap_content"
                 android:layout_marginTop   = "24dp"
-                android:text=  "@string/ingredients_heading"
-                android:textSize= "18sp"
-                android:textStyle   = "bold" />
+                android:text = "@string/ingredients_heading"
+                android:textSize =  "18sp"
+                android:textStyle= "bold" />
 
-            <!-- displays the required ingredients -->
+
+
+            <!-- shows which ingredients are needed for the recipe -->
             <TextView
-                android:id= "@+id/text_recipe_ingredients"
-                android:layout_width   = "match_parent"
-                android:layout_height = "wrap_content"
+                android:id=   "@+id/text_recipe_ingredients"
+                android:layout_width = "match_parent"
+                android:layout_height= "wrap_content"
                 android:layout_marginTop=  "8dp"
-                android:text =   "@string/ingredients_preview"
-                android:textSize= "16sp" />
+                android:textSize   = "16sp" />
 
             <!-- preparation method heading -->
             <TextView
-                android:layout_width=  "match_parent"
+                android:layout_width= "match_parent"
                 android:layout_height   = "wrap_content"
                 android:layout_marginTop = "24dp"
-                android:text= "@string/method_heading"
-                android:textSize   = "18sp"
-                android:textStyle=  "bold" />
+                android:text =  "@string/method_heading"
+                android:textSize= "18sp"
+                android:textStyle =   "bold" />
 
-            <!-- displays the preparation steps -->
+
+            <!-- displays the preparation instructions -->
             <TextView
-                android:id =   "@+id/text_recipe_method"
-                android:layout_width= "match_parent"
-                android:layout_height = "wrap_content"
-                android:layout_marginTop   = "8dp"
-                android:text=  "@string/method_preview"
-                android:textSize = "16sp" />
-            <!-- temporary detail screen note -->
-            <TextView
+                android:id = "@+id/text_recipe_method"
                 android:layout_width   = "match_parent"
-                android:layout_height=  "wrap_content"
-                android:layout_marginTop =   "24dp"
-                android:text= "@string/detail_preview_note" />
-
+                android:layout_height= "wrap_content"
+                android:layout_marginTop =  "8dp"
+                android:textSize=   "16sp" />
 
         </LinearLayout>
 
+
     </ScrollView>
+
+
 
 </LinearLayout>

@@ -1,9 +1,8 @@
 ## Current Progress
 
 
-
-- Enabled tapping pantry items to edit their saved details.
-- Reused the ingredient form for adding and editing.
-- Added ingredient deletion with a confirmation dialog.
-- Refreshed the pantry list after updates and deletions.
-- Preserved unfinished form fields during screen rotation.
+- 15 recipes ingredients and preparation instructions was stored
+- strict matching was put in place for each necessary element and quantity 
+- unit conversion and supported ingredient-name aliases have been added
+- during matching, duplicate ingredient quantities were combined
+- unit tests for complete matches, missing ingredients as wellas inadequate amounts, and unit compatibility have been added

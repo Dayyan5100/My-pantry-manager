@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout
-    xmlns:android=  "http://schemas.android.com/apk/res/android"
-    android:id= "@+id/main"
-    android:layout_width= "match_parent"
-    android:layout_height   = "match_parent"
-    android:orientation=   "vertical">
-
+    xmlns:android= "http://schemas.android.com/apk/res/android"
+    android:id=  "@+id/main"
+    android:layout_width   = "match_parent"
+    android:layout_height= "match_parent"
+    android:orientation =  "vertical">
 
     <!-- loads the toolbar -->
-    <include layout =   "@layout/view_toolbar" />
+    <include layout= "@layout/view_toolbar" />
 
 
-    <!-- allows the screen content to scroll -->
-    <ScrollView
-        android:layout_width= "match_parent"
-        android:layout_height =  "0dp"
-        android:layout_weight=   "1"
-        android:fillViewport= "true">
+    <!-- holds the suggested recipes content -->
+    <LinearLayout
+        android:layout_width=  "match_parent"
+        android:layout_height="0dp"
+        android:layout_weight   = "1"
+        android:orientation= "vertical"
+        android:padding =   "20dp">
 
-        <!-- holds the suggested recipes content -->
-        <LinearLayout
+
+        <!-- introduction text -->
+        <TextView
+            android:layout_width= "match_parent"
+            android:layout_height  ="wrap_content"
+            android:text  =  "@string/suggestions_intro"
+            android:textSize= "18sp" />
+
+
+        <!-- displays the number of matching recipes or an empty message -->
+        <TextView
+            android:id   = "@+id/text_suggestions_status"
+            android:layout_width= "match_parent"
+            android:layout_height =  "wrap_content"
+            android:layout_marginTop  =   "20dp"
+            android:textSize = "16sp" />
+
+
+        <!-- listview is used to display multiple recipes -->
+        <!-- displays recipes that match the pantry -->
+        <ListView
+            android:id=  "@+id/list_suggested_recipes"
             android:layout_width = "match_parent"
-            android:layout_height=  "wrap_content"
-            android:orientation =   "vertical"
-            android:padding= "20dp">
+            android:layout_height= "0dp"
+            android:layout_weight=  "1"
+            android:layout_marginTop   = "12dp" />
 
+    </LinearLayout>
 
-            <!-- introduction text -->
-            <TextView
-                android:layout_width   = "match_parent"
-                android:layout_height= "wrap_content"
-                android:text=  "@string/suggestions_intro"
-                android:textSize=   "18sp" />
-
-            <!-- temporary recipe suggestion message -->
-            <TextView
-                android:layout_width= "match_parent"
-                android:layout_height   = "wrap_content"
-                android:layout_marginTop = "20dp"
-                android:text =   "@string/suggestions_preview"
-                android:textSize= "16sp" />
-            <!-- opens the recipe detail preview -->
-            <Button
-                android:id=   "@+id/button_preview_recipe"
-                android:layout_width= "match_parent"
-                android:layout_height=  "wrap_content"
-                android:layout_marginTop   = "20dp"
-                android:text= "@string/open_detail_preview" />
-
-
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>
