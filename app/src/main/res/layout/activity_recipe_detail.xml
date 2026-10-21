@@ -10,37 +10,56 @@
     <include layout = "@layout/view_toolbar" />
 
 
+    <!-- shows a message while the recipe loads or if an error happens -->
+    <TextView
+        android:id =   "@+id/text_recipe_status"
+        android:layout_width = "match_parent"
+        android:layout_height=  "wrap_content"
+        android:padding   = "20dp"
+        android:accessibilityLiveRegion= "polite"
+        android:text =  "@string/recipe_loading"
+        android:textSize  = "16sp" />
+
+
+    <!-- allows the user to try loading the recipe again -->
+    <Button
+        android:id = "@+id/button_retry_recipe"
+        android:layout_width =  "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_marginStart=   "20dp"
+        android:text = "@string/retry"
+        android:visibility =  "gone" />
+
+
     <!-- scrollview allows the user to scroll through longer recipes -->
     <ScrollView
-        android:layout_width= "match_parent"
+        android:id =  "@+id/scroll_recipe_detail"
+        android:layout_width = "match_parent"
         android:layout_height =  "0dp"
         android:layout_weight   = "1"
-        android:fillViewport= "true">
-
-
+        android:visibility=   "gone">
         <!-- holds the recipe information -->
         <LinearLayout
             android:layout_width = "match_parent"
             android:layout_height=   "wrap_content"
             android:orientation =  "vertical"
-            android:padding = "20dp">
+            android:padding= "20dp">
             <!-- displays the selected recipe name -->
             <TextView
                 android:id   = "@+id/text_recipe_name"
                 android:layout_width= "match_parent"
                 android:layout_height = "wrap_content"
-                android:textSize =  "24sp"
+                android:textSize=  "24sp"
                 android:textStyle = "bold" />
-
-
             <!-- ingredients heading -->
             <TextView
                 android:layout_width = "match_parent"
                 android:layout_height=  "wrap_content"
                 android:layout_marginTop   = "24dp"
-                android:text = "@string/ingredients_heading"
+                android:text= "@string/ingredients_heading"
                 android:textSize =  "18sp"
                 android:textStyle= "bold" />
+
 
 
 
@@ -52,6 +71,7 @@
                 android:layout_marginTop=  "8dp"
                 android:textSize   = "16sp" />
 
+
             <!-- preparation method heading -->
             <TextView
                 android:layout_width= "match_parent"
@@ -60,9 +80,8 @@
                 android:text =  "@string/method_heading"
                 android:textSize= "18sp"
                 android:textStyle =   "bold" />
-
-
             <!-- displays the preparation instructions -->
+            <!-- wrap_content lets the textview grow for longer instructions -->
             <TextView
                 android:id = "@+id/text_recipe_method"
                 android:layout_width   = "match_parent"
@@ -73,8 +92,8 @@
         </LinearLayout>
 
 
+
+
     </ScrollView>
-
-
 
 </LinearLayout>

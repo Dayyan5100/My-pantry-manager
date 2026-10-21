@@ -1,8 +1,8 @@
 ## Current Progress
 
 
-- 15 recipes ingredients and preparation instructions was stored
-- strict matching was put in place for each necessary element and quantity 
-- unit conversion and supported ingredient-name aliases have been added
-- during matching, duplicate ingredient quantities were combined
-- unit tests for complete matches, missing ingredients as wellas inadequate amounts, and unit compatibility have been added
+- connected the suggested recipes screen with strict pantry matching.
+- show only recipes with every required ingredient in correct or the least amount needed quantity.
+- added a no match message and loading/error feedback.
+- passed the selected recipe ID; using an Intent.
+- displayed recipe ingredients, quantities as well as units and preparation steps from SQLite.

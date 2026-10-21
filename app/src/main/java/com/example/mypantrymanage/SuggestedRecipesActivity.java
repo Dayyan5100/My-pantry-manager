@@ -1,50 +1,78 @@
 package com.example.mypantrymanage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class SuggestedRecipesActivity extends BaseActivity {
+    private static final String TAG= "SuggestedRecipes";
 
-    private DatabaseHelper databaseHelper;
-    private TextView suggestionsStatus;
-    private ListView recipesList;
 
-    private ArrayList<Recipe> matchingRecipes;
+    // variables for the recipe screen
+    private TextView statusText;
+    private Button retryButton;
+
+    private ListView recipeList;
+    private ArrayAdapter<String> adapter;
+
+    // list used to store the matching recipes
+    private final ArrayList<Recipe> recipes = new ArrayList<>();
+    private int loadVersion =  0;
+    private final ExecutorService databaseExecutor =
+            Executors.newSingleThreadExecutor();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setupScreen(
                 R.layout.activity_suggested_recipes,
                 R.string.title_suggestions
         );
 
-        // connects the screen to the XML views
-        suggestionsStatus = findViewById(R.id.text_suggestions_status);
-        recipesList = findViewById(R.id.list_suggested_recipes);
+        statusText= findViewById(R.id.text_recipes_status);
+        retryButton =  findViewById(R.id.button_retry_recipes);
+        recipeList= findViewById(R.id.list_recipes);
 
-        // opens the existing SQLite database
-        databaseHelper = new DatabaseHelper(this);
-        matchingRecipes = new ArrayList<>();
 
-        // opens the recipe selected by the user
-        recipesList.setOnItemClickListener((parent,view, position, id) -> {
+        // creates an adapter to display recipe names
+        adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                new ArrayList<String>()
+        ); // uses android's built-in single-line row
 
-            Recipe selectedRecipe = matchingRecipes.get(position);
 
-            Intent intent =new Intent(
+        recipeList.setAdapter(adapter);
+
+
+        // opens the selected recipe when tapped
+        recipeList.setOnItemClickListener((parent, view, position, id) -> {
+
+            Recipe selectedRecipe= recipes.get(position);
+
+            Intent intent= new Intent(
                     SuggestedRecipesActivity.this,
                     RecipeDetailActivity.class
             );
 
-            // passes the actual recipe database ID
+
+            // sends the selected recipe id to the detail screen
             intent.putExtra(
                     RecipeDetailActivity.EXTRA_RECIPE_ID,
                     selectedRecipe.getId()
@@ -52,181 +80,130 @@ public class SuggestedRecipesActivity extends BaseActivity {
 
             startActivity(intent);
         });
+
+
+        retryButton.setOnClickListener(view -> loadRecipes());
     }
 
     @Override
     protected void onResume(){
+
         super.onResume();
 
-        // reloads suggestions when the screen becomes visible
-        loadSuggestedRecipes();
+        loadRecipes(); // checks the pantry whenever this screen resumes
     }
 
-    private void loadSuggestedRecipes()  {
 
-        matchingRecipes.clear();
 
-        try {
-            // retrieves pantry items and recipes from SQLite
-            ArrayList<PantryItem> pantryItems=
-                    databaseHelper.getAllPantryItems();
+    private void loadRecipes()   {
 
-            ArrayList<Recipe> allRecipes=
-                    databaseHelper.getAllRecipes();
+        final int currentLoad= ++loadVersion;
+        // hides the list while the recipes are loading
+        recipeList.setVisibility(View.GONE);
+        retryButton.setVisibility( View.GONE );
+        statusText.setVisibility(View.VISIBLE);
+        statusText.setText(R.string.recipes_loading);
+        Context appContext =getApplicationContext();
+        databaseExecutor.execute(() -> {
 
-            // checks which recipes can be made
-            for (Recipe recipe : allRecipes) {
+            DatabaseHelper helper= new DatabaseHelper(appContext);
 
-                if (canMakeRecipe(recipe,pantryItems)) {
-                    matchingRecipes.add(recipe);
-                }
+            ArrayList<Recipe> matches =  new ArrayList<>();
+            boolean success= false;
+
+
+            try {
+
+                // gets the recipes and pantry ingredients from the database
+                ArrayList<Recipe> allRecipes = helper.getAllRecipes();
+                ArrayList<PantryItem> pantryItems= helper.getAllPantryItems();
+                // checks which recipes can be made with the available ingredients
+                matches = RecipeMatcher.findMatches(allRecipes, pantryItems);
+
+                success= true;
+
+            } catch (SQLiteException exception) {
+
+                Log.e(TAG, "Could not load suggested recipes", exception);
+
+            } finally {
+
+                helper.close();
             }
 
-            ArrayList<String> recipeNames = new ArrayList<>();
-            for (Recipe recipe : matchingRecipes) {
-                recipeNames.add(recipe.getName());
-            }
 
-            // connects the matching names to the ListView
-            ArrayAdapter<String> adapter= new ArrayAdapter<>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    recipeNames
-            );
+            final ArrayList<Recipe> result= matches;
+            final boolean loaded = success;
+            runOnUiThread(() -> {
 
-            recipesList.setAdapter(adapter);
+                // checks if the screen is still active
+                if (isFinishing()
+                        || isDestroyed()
+                        || currentLoad != loadVersion) {
 
-            if (matchingRecipes.isEmpty()){
-
-                suggestionsStatus.setText(
-                        "No recipes match your pantry yet. " +
-                                "Add more ingredients to get started."
-                );
-
-            } else {
-
-                suggestionsStatus.setText(
-                        matchingRecipes.size() + " recipe(s) available:"
-                );
-            }
-
-        } catch (Exception e) {
-
-            matchingRecipes.clear();
-            recipesList.setAdapter(null);
-
-            suggestionsStatus.setText(
-                    "Could not load recipes. Please try again."
-            );
-        }
-    }
-
-    // checks that every recipe ingredient is available
-    private boolean canMakeRecipe(
-            Recipe recipe,
-            ArrayList<PantryItem> pantryItems
-    ) {
-
-        for (RecipeIngredient required :  recipe.getIngredients()) {
-
-            double availableQuantity= 0;
-
-            for (PantryItem pantryItem: pantryItems) {
-
-                // matches ingredient names
-                String pantryName =normaliseName(pantryItem.getName());
-                String requiredName =normaliseName(required.getName());
-
-                if (!pantryName.equals(requiredName)) {
-                    continue;
+                    return; // ignores an outdated loading result
                 }
 
-                // only adds quantities with compatible units
-                if (sameUnitType(
-                        pantryItem.getUnit(),
-                        required.getUnit()
-                )) {
 
-                    availableQuantity +=   convertQuantity(
-                            pantryItem.getQuantity(),
-                            pantryItem.getUnit()
-                    );
+
+                if(!loaded) {
+
+                    statusText.setText(R.string.recipes_load_failed);
+                    retryButton.setVisibility(View.VISIBLE);
+
+                    return;
                 }
-            }
+                // clears the old recipes before adding the new ones
+                recipes.clear();
 
-            double requiredQuantity  =   convertQuantity(
-                    required.getQuantity(),
-                    required.getUnit()
-            );
+                recipes.addAll(result);
 
-            // one missing ingredient means the whole recipe fails
-            if (availableQuantity <   requiredQuantity) {
-                return false;
-            }
-        }
+                adapter.clear();
 
-        return true;
+
+                // loops through the matching recipes
+                for (Recipe recipe : recipes) {
+
+                    adapter.add(recipe.getName());
+                }
+
+                adapter.notifyDataSetChanged();
+
+
+                if (recipes.isEmpty()) {
+
+                    // displays a message if no recipes can be made
+                    statusText.setText(R.string.recipes_no_matches);
+
+                } else {
+
+
+                    // displays the list when matching recipes are found
+                    statusText.setVisibility(View.GONE);
+
+                    recipeList.setVisibility(View.VISIBLE);
+                }
+            });
+        });
     }
 
-    // handles basic singular/plural differences
-    private String normaliseName(String name){
 
-        String result  =  name.trim().toLowerCase(Locale.ROOT);
 
-        if (result.endsWith("tomatoes")) {
-            return result.substring(0, result.length() - 8) + "tomato";
-        }
+    @Override
+    protected void onStop() {
 
-        if (result.endsWith("potatoes")) {
-            return result.substring(0, result.length() - 8) +"potato";
-        }
+        loadVersion++; // invalidates results when leaving this screen
 
-        if (result.endsWith("ies") && result.length() > 3) {
-            return result.substring(0, result.length() - 3)+ "y";
-        }
-
-        if (result.endsWith("s") && !result.endsWith("ss")
-                && result.length() > 3) {
-            return result.substring(0, result.length()-1);
-        }
-
-        return result;
+        super.onStop();
     }
 
-    // checks whether measurement units can be compared
-    private boolean sameUnitType(String first, String second) {
 
-        if (first.equals(second)){
-
-            return true;
-        }
-
-        boolean firstWeight =first.equals("g") || first.equals("kg");
-        boolean secondWeight= second.equals("g") || second.equals("kg");
-
-        boolean firstVolume = first.equals("ml") || first.equals("l");
-        boolean secondVolume = second.equals("ml") || second.equals("l");
-
-        return (firstWeight&& secondWeight)
-                || (firstVolume && secondVolume);
-    }
-
-    // converts kilograms and litres into smaller units
-    private double convertQuantity(double quantity, String unit) {
-
-        if (unit.equals("kg") || unit.equals("l")) {
-            return quantity * 1000;
-        }
-
-        return quantity;
-    }
 
     @Override
     protected void onDestroy() {
+        databaseExecutor.shutdown();
         super.onDestroy();
 
-        if (databaseHelper != null) {
-            databaseHelper.close();
-        }
     }
+
 }
